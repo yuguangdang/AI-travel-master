@@ -4,7 +4,7 @@ Works with a chat model with tool calling support.
 """
 
 from datetime import UTC, datetime
-from typing import Dict, List, Literal, cast
+from typing import Dict, List, cast
 
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableConfig
