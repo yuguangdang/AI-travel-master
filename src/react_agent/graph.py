@@ -19,7 +19,7 @@ from react_agent.utils import load_chat_model
 # Define the function that calls the model
 
 
-async def call_model(
+async def eam_assistant(
     state: State, config: RunnableConfig
 ) -> Dict[str, List[AIMessage]]:
     """Call the LLM powering our "agent".
@@ -71,12 +71,12 @@ async def call_model(
 builder = StateGraph(State, input=InputState, config_schema=Configuration)
 
 # Define the two nodes we will cycle between
-builder.add_node(call_model)
+builder.add_node(eam_assistant)
 builder.add_node("tools", ToolNode(TOOLS))
 
-# Set the entrypoint as `call_model`
+# Set the entrypoint as `eam_assistant`
 # This means that this node is the first one called
-builder.add_edge("__start__", "call_model")
+builder.add_edge("__start__", "eam_assistant")
 
 
 def route_model_output(state: State) -> Literal["__end__", "tools"]:
@@ -102,17 +102,17 @@ def route_model_output(state: State) -> Literal["__end__", "tools"]:
     return "tools"
 
 
-# Add a conditional edge to determine the next step after `call_model`
+# Add a conditional edge to determine the next step after `eam_assistant`
 builder.add_conditional_edges(
-    "call_model",
-    # After call_model finishes running, the next node(s) are scheduled
+    "eam_assistant",
+    # After eam_assistant finishes running, the next node(s) are scheduled
     # based on the output from route_model_output
     route_model_output,
 )
 
-# Add a normal edge from `tools` to `call_model`
+# Add a normal edge from `tools` to `eam_assistant`
 # This creates a cycle: after using tools, we always return to the model
-builder.add_edge("tools", "call_model")
+builder.add_edge("tools", "eam_assistant")
 
 # Compile the builder into an executable graph
 # You can customize this by adding interrupt points for state updates
