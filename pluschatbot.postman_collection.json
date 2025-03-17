@@ -1,0 +1,45 @@
+{
+    "info": {
+        "name": "PlusChatbot LangGraph Tests",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Work Request",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    },
+                    {
+                        "key": "x-api-key",
+                        "value": "{{langsmith_api_key}}"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"thread_id\": null,\n    \"assistant_id\": \"agent\",\n    \"input\": {\n        \"messages\": [\n            {\n                \"role\": \"human\",\n                \"content\": \"I need to create a work request for a broken AC in room 101\"\n            }\n        ]\n    },\n    \"stream_mode\": \"updates\"\n}"
+                },
+                "url": {
+                    "raw": "https://pluschatbot-cloud-7d569667fa5c52aeb85c0f0ec6a0d04c.us.langgraph.app/runs/stream",
+                    "protocol": "https",
+                    "host": [
+                        "pluschatbot-cloud-7d569667fa5c52aeb85c0f0ec6a0d04c.us.langgraph.app"
+                    ],
+                    "path": [
+                        "runs",
+                        "stream"
+                    ]
+                }
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "langsmith_api_key",
+            "value": "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"
+        }
+    ]
+} 

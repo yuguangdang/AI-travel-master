@@ -9,7 +9,7 @@ from typing import Dict, List, Literal, cast
 from langchain_core.messages import AIMessage
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph import StateGraph
-from langgraph.prebuilt import ToolNode
+from langgraph.prebuilt import ToolNode, tools_condition
 
 from react_agent.configuration import Configuration
 from react_agent.state import InputState, State
@@ -79,35 +79,12 @@ builder.add_node("tools", ToolNode(TOOLS))
 builder.add_edge("__start__", "eam_assistant")
 
 
-def route_model_output(state: State) -> Literal["__end__", "tools"]:
-    """Determine the next node based on the model's output.
-
-    This function checks if the model's last message contains tool calls.
-
-    Args:
-        state (State): The current state of the conversation.
-
-    Returns:
-        str: The name of the next node to call ("__end__" or "tools").
-    """
-    last_message = state.messages[-1]
-    if not isinstance(last_message, AIMessage):
-        raise ValueError(
-            f"Expected AIMessage in output edges, but got {type(last_message).__name__}"
-        )
-    # If there is no tool call, then we finish
-    if not last_message.tool_calls:
-        return "__end__"
-    # Otherwise we execute the requested actions
-    return "tools"
-
-
 # Add a conditional edge to determine the next step after `eam_assistant`
 builder.add_conditional_edges(
     "eam_assistant",
     # After eam_assistant finishes running, the next node(s) are scheduled
     # based on the output from route_model_output
-    route_model_output,
+    tools_condition,
 )
 
 # Add a normal edge from `tools` to `eam_assistant`
