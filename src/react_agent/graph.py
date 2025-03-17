@@ -3,7 +3,7 @@
 Works with a chat model with tool calling support.
 """
 
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 from typing import Dict, List, Literal, cast
 
 from langchain_core.messages import AIMessage

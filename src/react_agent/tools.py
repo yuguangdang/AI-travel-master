@@ -1,10 +1,10 @@
 """Tools for the EAM assistant."""
 
-import aiohttp
-from aiohttp import BasicAuth
 from typing import Any, Callable, List, Optional, cast
 from typing_extensions import Annotated
 
+import aiohttp
+from aiohttp import BasicAuth
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import InjectedToolArg
