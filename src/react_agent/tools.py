@@ -73,8 +73,10 @@ Available Priority Levels:
 
 Please analyze the request and select the most appropriate request type and priority level."""
 
-        # Get classification from LLM
-        classification: WorkRequestClassification = await structured_llm.ainvoke(prompt)
+        # Get classification from LLM and ensure it's the correct type
+        classification = await structured_llm.ainvoke(prompt)
+        if not isinstance(classification, WorkRequestClassification):
+            classification = WorkRequestClassification(**classification)
 
         # Create the work request
         base_url = "https://saas-dev-sql.onespresso.net/T1Default/CiAnywhere/Web/SAAS-DEV-SQL/Intelligence/InternalApi/Service"
