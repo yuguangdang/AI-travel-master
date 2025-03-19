@@ -75,8 +75,10 @@ Please analyze the request and select the most appropriate request type and prio
 
         # Get classification from LLM and ensure it's the correct type
         classification = await structured_llm.ainvoke(prompt)
-        if not isinstance(classification, WorkRequestClassification):
+        if isinstance(classification, dict):
             classification = WorkRequestClassification(**classification)
+        elif not isinstance(classification, WorkRequestClassification):
+            raise ValueError("Unexpected classification type")
 
         # Create the work request
         base_url = "https://saas-dev-sql.onespresso.net/T1Default/CiAnywhere/Web/SAAS-DEV-SQL/Intelligence/InternalApi/Service"
