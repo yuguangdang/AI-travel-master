@@ -1,6 +1,6 @@
 """Define tools for the Search Assistant agent."""
 
-from typing import Any, Callable, List, Dict, Union
+from typing import Any, Callable, Dict, List
 
 dummy_result: List[Dict[str, Any]] = [
     {
