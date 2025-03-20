@@ -1,7 +1,7 @@
 [project]
-name = "react-agent"
+name = "plus-assistant"
 version = "0.0.1"
-description = "Starter template for making a custom Reasoning and Action agent (using tool calling) in LangGraph."
+description = "A multi-agent system that coordinates between EAM and Search assistants."
 authors = [
     { name = "William Fu-Hinthorn", email = "13333726+hinthornw@users.noreply.github.com" },
 ]
@@ -29,11 +29,8 @@ requires = ["setuptools>=73.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["langgraph.templates.react_agent", "react_agent"]
-[tool.setuptools.package-dir]
-"langgraph.templates.react_agent" = "src/react_agent"
-"react_agent" = "src/react_agent"
-
+packages = ["plus_assistant"]
+package-dir = {"" = "src"}
 
 [tool.setuptools.package-data]
 "*" = ["py.typed"]
@@ -58,7 +55,8 @@ lint.ignore = [
     "E501",
 ]
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["D", "UP"]
+"tests/*" = ["D", "UP", "T201"]
+"src/plus_assistant/test_assistants.py" = ["T201"]
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 

@@ -1,14 +1,14 @@
 import pytest
 from langsmith import unit
 
-from react_agent import graph
+from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
 
 
 @pytest.mark.asyncio
 @unit
 async def test_eam_assistant_work_request() -> None:
     """Test that the EAM assistant can handle a basic work request."""
-    res = await graph.ainvoke(
+    res = await eam_assistant.ainvoke(
         {"messages": [("user", "I need to create a work request for a broken AC in room 101")]},
         {"configurable": {"system_prompt": "You are an Enterprise Asset Management assistant. Your role is to help users create and manage work requests for facility maintenance and repairs."}},
     )

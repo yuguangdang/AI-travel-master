@@ -7,15 +7,23 @@ from typing import Annotated, Optional
 
 from langchain_core.runnables import RunnableConfig, ensure_config
 
-from react_agent import prompts
+from plus_assistant import prompts
 
 
 @dataclass(kw_only=True)
 class Configuration:
     """The configuration for the agent."""
 
-    system_prompt: str = field(
-        default=prompts.SYSTEM_PROMPT,
+    eam_assistant_system_prompt: str = field(
+        default=prompts.EAM_ASSISTANT_SYSTEM_PROMPT,
+        metadata={
+            "description": "The system prompt to use for the agent's interactions. "
+            "This prompt sets the context and behavior for the agent."
+        },
+    )
+
+    search_assistant_system_prompt: str = field(
+        default=prompts.SEARCH_ASSISTANT_SYSTEM_PROMPT,
         metadata={
             "description": "The system prompt to use for the agent's interactions. "
             "This prompt sets the context and behavior for the agent."

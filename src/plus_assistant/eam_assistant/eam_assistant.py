@@ -1,4 +1,4 @@
-"""Define a custom Reasoning and Action agent.
+"""Define a custom EAM Assistant agent.
 
 Works with a chat model with tool calling support.
 """
@@ -11,10 +11,10 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.graph import StateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
 
-from react_agent.configuration import Configuration
-from react_agent.state import InputState, State
-from react_agent.tools import TOOLS
-from react_agent.utils import load_chat_model
+from plus_assistant.configuration import Configuration
+from plus_assistant.eam_assistant.eam_assistant_tools import EAM_ASSISTANT_TOOLS
+from plus_assistant.state import InputState, State
+from plus_assistant.utils import load_chat_model
 
 # Define the function that calls the model
 
@@ -22,7 +22,7 @@ from react_agent.utils import load_chat_model
 async def eam_assistant(
     state: State, config: RunnableConfig
 ) -> Dict[str, List[AIMessage]]:
-    """Call the LLM powering our "agent".
+    """Call the LLM powering our eam assistant.
 
     This function prepares the prompt, initializes the model, and processes the response.
 
@@ -36,10 +36,10 @@ async def eam_assistant(
     configuration = Configuration.from_runnable_config(config)
 
     # Initialize the model with tool binding. Change the model or add more tools here.
-    model = load_chat_model(configuration.model).bind_tools(TOOLS)
+    model = load_chat_model(configuration.model).bind_tools(EAM_ASSISTANT_TOOLS)
 
     # Format the system prompt. Customize this to change the agent's behavior.
-    system_message = configuration.system_prompt.format(
+    system_message = configuration.eam_assistant_system_prompt.format(
         system_time=datetime.now(tz=UTC).isoformat()
     )
 
@@ -72,7 +72,7 @@ builder = StateGraph(State, input=InputState, config_schema=Configuration)
 
 # Define the two nodes we will cycle between
 builder.add_node(eam_assistant)
-builder.add_node("tools", ToolNode(TOOLS))
+builder.add_node("tools", ToolNode(EAM_ASSISTANT_TOOLS))
 
 # Set the entrypoint as `eam_assistant`
 # This means that this node is the first one called
@@ -97,4 +97,4 @@ graph = builder.compile(
     interrupt_before=[],  # Add node names here to update state before they're called
     interrupt_after=[],  # Add node names here to update state after they're called
 )
-graph.name = "ReAct Agent"  # This customizes the name in LangSmith
+graph.name = "eam_assistant"  # This customizes the name in LangSmith

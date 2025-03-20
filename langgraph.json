@@ -1,7 +1,9 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "agent": "./src/react_agent/graph.py:graph"
+    "plus_assistant": "./src/plus_assistant/plus_assistant.py:graph",
+    "eam_assistant": "./src/plus_assistant/eam_assistant/eam_assistant.py:graph",
+    "search_assistant": "./src/plus_assistant/search_assistant/search_assistant.py:graph"
   },
   "env": ".env"
 }

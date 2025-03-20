@@ -11,7 +11,7 @@ from langchain_core.tools import InjectedToolArg
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated
 
-from react_agent.configuration import Configuration
+from plus_assistant.configuration import Configuration
 
 
 class WorkRequestClassification(BaseModel):
@@ -138,4 +138,4 @@ async def search(
     return cast(list[dict[str, Any]], result)
 
 
-TOOLS: List[Callable[..., Any]] = [create_work_request]
+EAM_ASSISTANT_TOOLS: List[Callable[..., Any]] = [create_work_request]
