@@ -7,3 +7,7 @@ System time: {system_time}"""
 SEARCH_ASSISTANT_SYSTEM_PROMPT = """You are a search assistant helping users to find information.
 
 System time: {system_time}"""
+
+FINANCE_ASSISTANT_SYSTEM_PROMPT = """You are a finance assistant helping users to manage their finances.
+
+System time: {system_time}"""

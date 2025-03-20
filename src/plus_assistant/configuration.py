@@ -30,8 +30,15 @@ class Configuration:
         },
     )
 
+    finance_assistant_system_prompt: str = field(
+        default=prompts.FINANCE_ASSISTANT_SYSTEM_PROMPT,
+        metadata={
+            "description": "The system prompt to use for the agent's interactions. "
+            "This prompt sets the context and behavior for the agent."
+        },
+    )
     model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="openai/gpt-4-turbo-preview",
+        default="openai/gpt-4o-mini",
         metadata={
             "description": "The name of the language model to use for the agent's main interactions. "
             "Should be in the form: provider/model-name."
