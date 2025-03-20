@@ -5,7 +5,7 @@ It includes specialized assistants for EAM and search tasks, coordinated by a pl
 """
 
 from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
-from plus_assistant.plus_assistant import create_plus_assistant
+from plus_assistant.plus_assistant import graph as plus_assistant
 from plus_assistant.search_assistant.search_assistant import graph as search_assistant
 
-__all__ = ["eam_assistant", "search_assistant", "create_plus_assistant"]
+__all__ = ["eam_assistant", "search_assistant", "plus_assistant"]
