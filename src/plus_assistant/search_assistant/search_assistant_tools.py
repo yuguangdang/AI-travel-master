@@ -1,8 +1,8 @@
 """Define tools for the Search Assistant agent."""
 
-from typing import Any, Callable, List
+from typing import Any, Callable, List, Dict, Union
 
-dummy_result = [
+dummy_result: List[Dict[str, Any]] = [
     {
         "text": "I have found some options for you. To which page would you like me to take you?"
     },
@@ -29,7 +29,7 @@ dummy_result = [
     }
 ]
 
-def search_item_in_erp_system(query: str) -> str:
+def search_item_in_erp_system(query: str) -> List[Dict[str, Any]]:
     """Get links to CIA documents."""
     return dummy_result
 
