@@ -2,7 +2,6 @@
 
 from typing import Any, Callable, List
 
-
 dummy_result = [
     {
         "text": "I have found some options for you. To which page would you like me to take you?"

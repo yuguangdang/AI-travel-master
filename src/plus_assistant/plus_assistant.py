@@ -8,7 +8,9 @@ from langchain_openai import ChatOpenAI
 from langgraph_supervisor import create_supervisor
 
 from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
-from plus_assistant.finance_assistant.finance_assistant import graph as finance_assistant
+from plus_assistant.finance_assistant.finance_assistant import (
+    graph as finance_assistant,
+)
 from plus_assistant.search_assistant.search_assistant import graph as search_assistant
 
 # Initialize the model
