@@ -1,6 +1,7 @@
 """Tools for the EAM assistant."""
 
 from typing import Any, Callable, Dict, List, Optional, cast
+import json
 
 import aiohttp
 from aiohttp import BasicAuth
@@ -111,13 +112,53 @@ Please analyze the request and select the most appropriate request type and prio
                 url, headers=headers, auth=auth, json=body
             ) as response:
                 api_response = await response.text()
-                return {
-                    "status": "success",
-                    "message": "Work request created successfully",
-                    "request_type": classification.request_type,
-                    "priority": classification.priority,
-                    "api_response": api_response,
-                }
+                
+                # Parse the API response to check for errors
+                try:
+                    response_json = json.loads(api_response)
+                    items = response_json.get("Items", [])
+                    if items and items[0].get("Messages"):
+                        # If there are messages, check if any are errors
+                        error_messages = [
+                            msg["Message"] 
+                            for msg in items[0]["Messages"] 
+                            if msg.get("NotificationType") == "Error"
+                        ]
+                        if error_messages:
+                            return {
+                                "status": "error",
+                                "message": "Work request creation failed: " + "; ".join(error_messages),
+                                "request_type": classification.request_type,
+                                "priority": classification.priority,
+                                "api_response": api_response
+                            }
+                    
+                    # If we get here and have a work request number, it's a success
+                    if items and items[0].get("WorkRequestNumber"):
+                        return {
+                            "status": "success",
+                            "message": f"Work request created successfully with number {items[0]['WorkRequestNumber']}",
+                            "request_type": classification.request_type,
+                            "priority": classification.priority,
+                            "api_response": api_response
+                        }
+                    
+                    # If we get here, something unexpected happened
+                    return {
+                        "status": "error",
+                        "message": "Work request creation failed: Unexpected response format",
+                        "request_type": classification.request_type,
+                        "priority": classification.priority,
+                        "api_response": api_response
+                    }
+                except json.JSONDecodeError:
+                    return {
+                        "status": "error",
+                        "message": "Work request creation failed: Invalid API response format",
+                        "request_type": classification.request_type,
+                        "priority": classification.priority,
+                        "api_response": api_response
+                    }
 
     except Exception as e:
         return {"status": "error", "message": f"An error occurred: {str(e)}"}
