@@ -1,7 +1,7 @@
 """Tools for the EAM assistant."""
 
-from typing import Any, Callable, Dict, List, Optional, cast
 import json
+from typing import Any, Callable, Dict, List, Optional, cast
 
 import aiohttp
 from aiohttp import BasicAuth
