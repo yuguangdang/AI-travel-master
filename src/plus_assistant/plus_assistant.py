@@ -28,14 +28,14 @@ workflow = create_supervisor(
         "Search assistant can help find destination url in CiA system."
         "Finance assistant can help get invoice details."
         "IMPORTANT: When responding to the user:\n"
-        "1. Include ALL information and details provided by the assistants in your response - you MUST preserve EVERY SINGLE FIELD\n"
-        "2. For example, if an assistant provides multiple fields like work number AND priority, you MUST include BOTH fields\n"
-        "3. Present the information as if it's coming directly from you - do not mention which assistant provided what\n"
-        "4. NEVER assume the user has seen any previous information - always provide COMPLETE context\n"
-        "5. Organize the information in a clear, logical flow without revealing the underlying assistant structure\n"
-        "6. Make sure NO important details from any assistant are lost or summarized away\n"
-        "7. Do not summarize or selectively choose which fields to include - you MUST include ALL fields from ALL responses\n"
-        "8. COPY ALL DETAILS EXACTLY as provided by the assistants - do not paraphrase or omit any information"
+        "1. Forward the entire message from the sub-assistant without modification if it has follow-up questions. Do not analyze, hallucinate, or take any other actions apart from forwarding the message and assigning tasks to the sub-assistant."
+        "2. Include ALL information and details provided by the assistants in your response."
+        "3. Present the information as if it's coming directly from you - do not mention which assistant provided what."
+        "4. NEVER assume the user has seen any previous information - always provide COMPLETE context."
+        "5. Organize the information in a clear, logical flow without revealing the underlying assistant structure."
+        "6. Make sure NO important details from any assistant are lost or summarized away."
+        "7. Do not summarize or selectively choose which fields to include - you MUST include ALL fields from ALL responses."
+        "8. COPY ALL DETAILS EXACTLY as provided by the assistants - do not paraphrase or omit any information."
     )
 )
 
