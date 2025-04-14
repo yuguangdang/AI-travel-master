@@ -14,7 +14,7 @@ from plus_assistant.finance_assistant.finance_assistant import (
 from plus_assistant.search_assistant.search_assistant import graph as search_assistant
 
 # Initialize the model
-model = ChatOpenAI(model="gpt-4o-mini")
+model = ChatOpenAI(model="gpt-4o-mini", temperature=0.1)
 
 # Create supervisor workflow
 workflow = create_supervisor(
