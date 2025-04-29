@@ -4,7 +4,6 @@ This module creates a supervisor that coordinates between the EAM assistant
 and Search assistant to provide comprehensive assistance.
 """
 
-from langchain_openai import ChatOpenAI
 from langgraph_supervisor import create_supervisor
 
 from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
@@ -12,9 +11,12 @@ from plus_assistant.finance_assistant.finance_assistant import (
     graph as finance_assistant,
 )
 from plus_assistant.search_assistant.search_assistant import graph as search_assistant
+from plus_assistant.utils import load_chat_model
+from plus_assistant.configuration import Configuration
 
-# Initialize the model
-model = ChatOpenAI(model="gpt-4o-mini", temperature=0.1)
+# Initialize the model using Configuration
+config = Configuration()
+model = load_chat_model(config.supervisor_model)
 
 # Create supervisor workflow
 workflow = create_supervisor(

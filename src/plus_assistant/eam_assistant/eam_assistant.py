@@ -36,7 +36,7 @@ async def eam_assistant(
     configuration = Configuration.from_runnable_config(config)
 
     # Initialize the model with tool binding. Change the model or add more tools here.
-    model = load_chat_model(configuration.model).bind_tools(EAM_ASSISTANT_TOOLS)
+    model = load_chat_model(configuration.sub_assistant_model).bind_tools(EAM_ASSISTANT_TOOLS)
 
     # Format the system prompt. Customize this to change the agent's behavior.
     system_message = configuration.eam_assistant_system_prompt.format(

@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from typing_extensions import Annotated
 
 from plus_assistant.configuration import Configuration
+from plus_assistant.utils import load_chat_model
 
 
 class WorkRequestClassification(BaseModel):
@@ -49,7 +50,7 @@ async def create_work_request(
         )
 
         # Initialize LLM with structured output
-        llm = init_chat_model("gpt-4o-mini", model_provider="openai")
+        llm = load_chat_model("azure_openai/gpt-4.1-mini")
         structured_llm = llm.with_structured_output(WorkRequestClassification)
 
         # Create the prompt for classification

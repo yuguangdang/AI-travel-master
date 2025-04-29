@@ -37,11 +37,33 @@ class Configuration:
             "This prompt sets the context and behavior for the agent."
         },
     )
-    model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="openai/gpt-4o-mini",
+    supervisor_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
+        default="azure_openai/gpt-4.1",
         metadata={
-            "description": "The name of the language model to use for the agent's main interactions. "
+            "description": "The name of the language model to use for the supervisor's interactions. "
             "Should be in the form: provider/model-name."
+        },
+    )
+
+    sub_assistant_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
+        default="azure_openai/gpt-4.1-mini",
+        metadata={
+            "description": "The name of the language model to use for the sub-assistants' interactions. "
+            "Should be in the form: provider/model-name."
+        },
+    )
+
+    azure_api_version: str = field(
+        default="2025-01-01-preview",
+        metadata={
+            "description": "The API version to use for Azure OpenAI API calls."
+        },
+    )
+
+    azure_endpoint: str = field(
+        default="https://rony-m6e499ib-eastus2.cognitiveservices.azure.com/",
+        metadata={
+            "description": "The Azure OpenAI endpoint URL."
         },
     )
 

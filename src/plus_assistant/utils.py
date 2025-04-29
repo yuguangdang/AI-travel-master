@@ -24,4 +24,20 @@ def load_chat_model(fully_specified_name: str) -> BaseChatModel:
         fully_specified_name (str): String in the format 'provider/model'.
     """
     provider, model = fully_specified_name.split("/", maxsplit=1)
-    return init_chat_model(model, model_provider=provider, temperature=0.1)
+    
+    if provider == "azure_openai":
+        # For Azure OpenAI, we need to pass additional parameters
+        from langchain_openai import AzureChatOpenAI
+        from plus_assistant.configuration import Configuration
+        
+        # Get configuration
+        config = Configuration()
+        
+        return AzureChatOpenAI(
+            model=model,
+            api_version=config.azure_api_version,
+            azure_endpoint=config.azure_endpoint,
+            temperature=0.1
+        )
+    else:
+        return init_chat_model(model, model_provider=provider, temperature=0.1)

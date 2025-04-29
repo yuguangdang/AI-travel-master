@@ -36,7 +36,7 @@ async def search_assistant(
     configuration = Configuration.from_runnable_config(config)
 
     # Initialize the model with tool binding
-    model = load_chat_model(configuration.model).bind_tools(SEARCH_ASSISTANT_TOOLS)
+    model = load_chat_model(configuration.sub_assistant_model).bind_tools(SEARCH_ASSISTANT_TOOLS)
 
     # Format the system prompt
     system_message = configuration.search_assistant_system_prompt.format(
