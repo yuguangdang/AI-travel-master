@@ -3,7 +3,6 @@
 Works with a chat model with tool calling support.
 """
 
-from datetime import UTC, datetime
 from typing import Dict, List, cast
 
 from langchain_core.messages import AIMessage
@@ -40,7 +39,7 @@ async def eam_assistant(
 
     # Format the system prompt. Customize this to change the agent's behavior.
     system_message = configuration.eam_assistant_system_prompt.format(
-        system_time=datetime.now(tz=UTC).isoformat()
+        system_time=configuration.get_current_time()
     )
 
     # Get the model's response

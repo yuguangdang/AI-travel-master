@@ -3,7 +3,6 @@
 Works with a chat model with tool calling support.
 """
 
-from datetime import UTC, datetime
 from typing import Dict, List, cast
 
 from langchain_core.messages import AIMessage
@@ -40,7 +39,7 @@ async def finance_assistant(
 
     # Format the system prompt
     system_message = configuration.finance_assistant_system_prompt.format(
-        system_time=datetime.now(tz=UTC).isoformat()
+        system_time=configuration.get_current_time()
     )
 
     # Get the model's response

@@ -4,6 +4,7 @@ This module creates a supervisor that coordinates between the EAM assistant
 and Search assistant to provide comprehensive assistance.
 """
 
+from datetime import datetime
 from langgraph_supervisor import create_supervisor
 
 from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
@@ -17,6 +18,9 @@ from plus_assistant.configuration import Configuration
 # Initialize the model using Configuration
 config = Configuration()
 model = load_chat_model(config.supervisor_model)
+
+# Get current system time with configured timezone
+system_time = config.get_current_time()
 
 # Create supervisor workflow
 workflow = create_supervisor(
@@ -38,6 +42,7 @@ workflow = create_supervisor(
         "6. Make sure NO important details from any assistant are lost or summarized away."
         "7. Do not summarize or selectively choose which fields to include - you MUST include ALL fields from ALL responses."
         "8. COPY ALL DETAILS EXACTLY as provided by the assistants - do not paraphrase or omit any information."
+        f"\n\nSystem time: {system_time} ({config.timezone})"
     )
 )
 
