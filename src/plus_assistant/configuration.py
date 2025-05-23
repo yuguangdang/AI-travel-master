@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field, fields
+from datetime import datetime
 from typing import Annotated, Optional
 
+import pytz
 from langchain_core.runnables import RunnableConfig, ensure_config
 
 from plus_assistant import prompts
@@ -98,9 +100,5 @@ class Configuration:
         Returns:
             str: Current timestamp in ISO format with timezone information.
         """
-        from datetime import datetime
-
-        import pytz
-        
         tz = pytz.timezone(self.timezone)
         return datetime.now(tz).isoformat()
