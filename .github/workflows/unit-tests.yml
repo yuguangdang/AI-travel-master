@@ -39,7 +39,7 @@ jobs:
           uv run ruff check .
       - name: Lint with mypy
         run: |
-          uv pip install mypy
+          uv pip install mypy types-pytz
           uv run mypy --strict src/
       - name: Check README spelling
         uses: codespell-project/actions-codespell@v2
