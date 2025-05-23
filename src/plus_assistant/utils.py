@@ -28,6 +28,7 @@ def load_chat_model(fully_specified_name: str) -> BaseChatModel:
     if provider == "azure_openai":
         # For Azure OpenAI, we need to pass additional parameters
         from langchain_openai import AzureChatOpenAI
+
         from plus_assistant.configuration import Configuration
         
         # Get configuration

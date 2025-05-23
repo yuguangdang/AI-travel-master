@@ -98,8 +98,9 @@ class Configuration:
         Returns:
             str: Current timestamp in ISO format with timezone information.
         """
-        import pytz
         from datetime import datetime
+
+        import pytz
         
         tz = pytz.timezone(self.timezone)
         return datetime.now(tz).isoformat()
