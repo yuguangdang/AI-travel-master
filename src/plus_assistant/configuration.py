@@ -92,7 +92,7 @@ class Configuration:
         _fields = {f.name for f in fields(cls) if f.init}
         return cls(**{k: v for k, v in configurable.items() if k in _fields})
 
-    def get_current_time(self):
+    def get_current_time(self) -> str:
         """Get the current time in the configured timezone.
         
         Returns:
