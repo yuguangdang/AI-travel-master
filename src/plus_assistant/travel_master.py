@@ -1,17 +1,19 @@
-"""Define the Plus Assistant that supervises EAM and Search assistants.
+"""Define the Travel Master supervisor.
 
-This module creates a supervisor that coordinates between the EAM assistant
-and Search assistant to provide comprehensive assistance.
+This module creates a supervisor that coordinates the flight, accommodation and
+car rental assistants to provide comprehensive travel planning support.
 """
 
 from langgraph_supervisor import create_supervisor
 
-from plus_assistant.configuration import Configuration
-from plus_assistant.eam_assistant.eam_assistant import graph as eam_assistant
-from plus_assistant.finance_assistant.finance_assistant import (
-    graph as finance_assistant,
+from plus_assistant.accommodation_assistant.accommodation_assistant import (
+    graph as accommodation_assistant,
 )
-from plus_assistant.search_assistant.search_assistant import graph as search_assistant
+from plus_assistant.car_rental_assistant.car_rental_assistant import (
+    graph as car_rental_assistant,
+)
+from plus_assistant.configuration import Configuration
+from plus_assistant.flight_assistant.flight_assistant import graph as flight_assistant
 from plus_assistant.utils import load_chat_model
 
 # Initialize the model using Configuration
@@ -23,15 +25,15 @@ system_time = config.get_current_time()
 
 # Create supervisor workflow
 workflow = create_supervisor(
-    [eam_assistant, search_assistant, finance_assistant],
+    [flight_assistant, accommodation_assistant, car_rental_assistant],
     model=model,
     prompt=(
-        "You are a team supervisor managing an EAM assistant, a search assistant and a finance assistant. "
+        "You are a team supervisor managing a flight assistant, an accommodation assistant and a car rental assistant. "
         "You can use all the assistants to answer the user's question. "
         "Choose the appropriate assistant based on the user's needs."
-        "EAM assistant can help create work requests."
-        "Search assistant can help find destination url in CiA system."
-        "Finance assistant can help get invoice details."
+        "Flight assistant can book, change or cancel flights."
+        "Accommodation assistant can manage hotel reservations."
+        "Car rental assistant can manage vehicle bookings."
         "IMPORTANT: When responding to the user:\n"
         "1. Forward the entire message from the sub-assistant without modification if it has follow-up questions. Do not analyze, hallucinate, or take any other actions apart from forwarding the message and assigning tasks to the sub-assistant."
         "2. Include ALL information and details provided by the assistants in your response."
@@ -42,9 +44,9 @@ workflow = create_supervisor(
         "7. Do not summarize or selectively choose which fields to include - you MUST include ALL fields from ALL responses."
         "8. COPY ALL DETAILS EXACTLY as provided by the assistants - do not paraphrase or omit any information."
         f"\n\nSystem time: {system_time} ({config.timezone})"
-    )
+    ),
 )
 
 # Compile the workflow and set the name
 graph = workflow.compile()
-graph.name = "plus_assistant" 
+graph.name = "travel_master"

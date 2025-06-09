@@ -1,4 +1,4 @@
-"""Define the configurable parameters for the agent."""
+"""Define the configurable parameters for the Travel Master system."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from dataclasses import dataclass, field, fields
 from datetime import datetime
 from typing import Annotated, Optional
 
-import pytz
+import pytz  # type: ignore[import-untyped]
 from langchain_core.runnables import RunnableConfig, ensure_config
 
 from plus_assistant import prompts
@@ -14,45 +14,39 @@ from plus_assistant import prompts
 
 @dataclass(kw_only=True)
 class Configuration:
-    """The configuration for the agent."""
+    """Configuration for the Travel Master system."""
 
-    eam_assistant_system_prompt: str = field(
-        default=prompts.EAM_ASSISTANT_SYSTEM_PROMPT,
-        metadata={
-            "description": "The system prompt to use for the agent's interactions. "
-            "This prompt sets the context and behavior for the agent."
-        },
+    flight_assistant_system_prompt: str = field(
+        default=prompts.FLIGHT_ASSISTANT_SYSTEM_PROMPT,
+        metadata={"description": "The system prompt for the flight assistant."},
+    )
+    accommodation_assistant_system_prompt: str = field(
+        default=prompts.ACCOMMODATION_ASSISTANT_SYSTEM_PROMPT,
+        metadata={"description": "The system prompt for the accommodation assistant."},
+    )
+    car_rental_assistant_system_prompt: str = field(
+        default=prompts.CAR_RENTAL_ASSISTANT_SYSTEM_PROMPT,
+        metadata={"description": "The system prompt for the car rental assistant."},
     )
 
-    search_assistant_system_prompt: str = field(
-        default=prompts.SEARCH_ASSISTANT_SYSTEM_PROMPT,
-        metadata={
-            "description": "The system prompt to use for the agent's interactions. "
-            "This prompt sets the context and behavior for the agent."
-        },
+    supervisor_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = (
+        field(
+            default="azure_openai/gpt-4.1",
+            metadata={
+                "description": "The name of the language model to use for the supervisor's interactions. "
+                "Should be in the form: provider/model-name."
+            },
+        )
     )
 
-    finance_assistant_system_prompt: str = field(
-        default=prompts.FINANCE_ASSISTANT_SYSTEM_PROMPT,
-        metadata={
-            "description": "The system prompt to use for the agent's interactions. "
-            "This prompt sets the context and behavior for the agent."
-        },
-    )
-    supervisor_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="azure_openai/gpt-4.1",
-        metadata={
-            "description": "The name of the language model to use for the supervisor's interactions. "
-            "Should be in the form: provider/model-name."
-        },
-    )
-
-    sub_assistant_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = field(
-        default="azure_openai/gpt-4.1-mini",
-        metadata={
-            "description": "The name of the language model to use for the sub-assistants' interactions. "
-            "Should be in the form: provider/model-name."
-        },
+    sub_assistant_model: Annotated[str, {"__template_metadata__": {"kind": "llm"}}] = (
+        field(
+            default="azure_openai/gpt-4.1-mini",
+            metadata={
+                "description": "The name of the language model to use for the sub-assistants' interactions. "
+                "Should be in the form: provider/model-name."
+            },
+        )
     )
 
     timezone: str = field(
@@ -65,23 +59,12 @@ class Configuration:
 
     azure_api_version: str = field(
         default="2025-01-01-preview",
-        metadata={
-            "description": "The API version to use for Azure OpenAI API calls."
-        },
+        metadata={"description": "The API version to use for Azure OpenAI API calls."},
     )
 
     azure_endpoint: str = field(
         default="https://rony-m6e499ib-eastus2.cognitiveservices.azure.com/",
-        metadata={
-            "description": "The Azure OpenAI endpoint URL."
-        },
-    )
-
-    max_search_results: int = field(
-        default=10,
-        metadata={
-            "description": "The maximum number of search results to return for each search query."
-        },
+        metadata={"description": "The Azure OpenAI endpoint URL."},
     )
 
     @classmethod
@@ -96,7 +79,7 @@ class Configuration:
 
     def get_current_time(self) -> str:
         """Get the current time in the configured timezone.
-        
+
         Returns:
             str: Current timestamp in ISO format with timezone information.
         """

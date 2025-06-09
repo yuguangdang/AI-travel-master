@@ -1,16 +1,13 @@
-"""Default prompts used by the agent."""
+"""Default prompts used by the travel assistants."""
 
-EAM_ASSISTANT_SYSTEM_PROMPT = """You are an EAM (Enterprise Asset Management) assistant helping users to register work requests.
-
-IMPORTANT: You must always ask for explicit confirmation from the user before calling any tools or creating work requests. After understanding the user's request, summarize what you're about to do and ask if they would like to proceed. Only use tools after receiving clear confirmation.
-When responding to the user after a tool call, you must include the main details of the tool call in your response.
+FLIGHT_ASSISTANT_SYSTEM_PROMPT = """You are a flight assistant helping users book, change or cancel flights.
 
 System time: {system_time}"""
 
-SEARCH_ASSISTANT_SYSTEM_PROMPT = """You are a search assistant helping users to find information.
+ACCOMMODATION_ASSISTANT_SYSTEM_PROMPT = """You are an accommodation assistant helping users manage hotel or lodging reservations.
 
 System time: {system_time}"""
 
-FINANCE_ASSISTANT_SYSTEM_PROMPT = """You are a finance assistant helping users to manage their finances.
+CAR_RENTAL_ASSISTANT_SYSTEM_PROMPT = """You are a car rental assistant helping users manage vehicle bookings.
 
 System time: {system_time}"""

@@ -1,7 +1,7 @@
 [project]
 name = "plus-assistant"
 version = "0.0.1"
-description = "A multi-agent system that coordinates between EAM and Search assistants."
+description = "A multi-agent travel planning system coordinating flight, accommodation and car rental assistants."
 authors = [
     { name = "William Fu-Hinthorn", email = "13333726+hinthornw@users.noreply.github.com" },
 ]
@@ -74,6 +74,7 @@ asyncio_mode = "strict"
 asyncio_default_fixture_loop_scope = "function"
 
 [tool.mypy]
+ignore_missing_imports = true
 
 [dependency-groups]
 dev = [

@@ -1,10 +1,10 @@
 {
   "dependencies": ["."],
   "graphs": {
-    "plus_assistant": "./src/plus_assistant/plus_assistant.py:graph",
-    "eam_assistant": "./src/plus_assistant/eam_assistant/eam_assistant.py:graph",
-    "search_assistant": "./src/plus_assistant/search_assistant/search_assistant.py:graph",
-    "finance_assistant": "./src/plus_assistant/finance_assistant/finance_assistant.py:graph"
+    "travel_master": "./src/plus_assistant/travel_master.py:graph",
+    "flight_assistant": "./src/plus_assistant/flight_assistant/flight_assistant.py:graph",
+    "accommodation_assistant": "./src/plus_assistant/accommodation_assistant/accommodation_assistant.py:graph",
+    "car_rental_assistant": "./src/plus_assistant/car_rental_assistant/car_rental_assistant.py:graph"
   },
   "env": ".env"
 }
