@@ -1,0 +1,10 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "travel_master": "./src/travel_master/travel_master.py:graph",
+    "flight_assistant": "./src/travel_master/flight_assistant/flight_assistant.py:graph",
+    "accommodation_assistant": "./src/travel_master/accommodation_assistant/accommodation_assistant.py:graph",
+    "car_rental_assistant": "./src/travel_master/car_rental_assistant/car_rental_assistant.py:graph"
+  },
+  "env": ".env"
+}

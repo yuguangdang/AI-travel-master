@@ -1,0 +1,81 @@
+[project]
+name = "travel-master"
+version = "0.0.1"
+description = "A multi-agent AI Travel Master system that coordinates between Flight, Accommodation, and Car Rental assistants to provide comprehensive travel planning and booking services."
+authors = [
+    { name = "AI Travel Master Team", email = "travel@example.com" },
+]
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "langgraph>=0.4.5",
+    "langsmith>=0.3.42",
+    "langchain>=0.3.25",
+    "langchain-openai>=0.3.18",
+    "langchain-anthropic>=0.3.13",
+    "langchain-core>=0.3.61",
+    "langchain-fireworks>=0.1.7",
+    "python-dotenv>=1.0.1",
+    "langchain-community>=0.3.23",
+    "tavily-python>=0.4.0",
+    "aiohttp>=3.9.0",
+    "langgraph-supervisor>=0.0.16",
+    "langgraph-sdk>=0.1.70",
+    "langgraph-cli>=0.1.89",
+    "langgraph-api>=0.0.48",
+    "langgraph-prebuilt>=0.1.8",
+    "langgraph-checkpoint>=2.0.24",
+    "pytz (>=2025.2,<2026.0)",
+]
+
+
+[project.optional-dependencies]
+dev = ["mypy>=1.11.1", "ruff>=0.6.1", "types-pytz>=2025.2"]
+
+[build-system]
+requires = ["setuptools>=73.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["travel_master"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
+
+[tool.ruff]
+lint.select = [
+    "E",    # pycodestyle
+    "F",    # pyflakes
+    "I",    # isort
+    "D",    # pydocstyle
+    "D401", # First line should be in imperative mood
+    "T201",
+    "UP",
+]
+lint.ignore = [
+    "UP006",
+    "UP007",
+    # We actually do want to import from typing_extensions
+    "UP035",
+    # Relax the convention by _not_ requiring documentation for every function parameter.
+    "D417",
+    "E501",
+]
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "UP", "T201"]
+"src/travel_master/test_assistants.py" = ["T201"]
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.mypy]
+
+[dependency-groups]
+dev = [
+    "langgraph-cli[inmem]>=0.1.71",
+]
