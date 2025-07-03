@@ -31,7 +31,7 @@ dependencies = [
 
 
 [project.optional-dependencies]
-dev = ["mypy>=1.11.1", "ruff>=0.6.1", "types-pytz>=2025.2"]
+dev = ["mypy>=1.11.1", "ruff>=0.6.1", "types-pytz>=2025.2", "pytest>=8.0.0", "pytest-asyncio>=0.23.0"]
 
 [build-system]
 requires = ["setuptools>=73.0.0", "wheel"]

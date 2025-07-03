@@ -18,6 +18,10 @@ Each assistant provides **four core capabilities**:
 
 ## Architecture
 
+![AI Travel Master System Architecture](static/travel_master_graph.png)
+
+*The diagram above shows the LangGraph flow visualization of the AI Travel Master system, illustrating how the supervisor coordinates with the three specialized assistants (Flight, Accommodation, and Car Rental) in a multi-agent workflow.*
+
 ### Supervisor Pattern
 The system uses LangGraph's supervisor pattern with:
 - **Travel Master (Supervisor)** - Coordinates and routes requests to appropriate assistants
