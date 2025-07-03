@@ -18,7 +18,8 @@ Each assistant provides **four core capabilities**:
 
 ## Architecture
 
-![AI Travel Master System Architecture](static/travel_master_graph.png)
+![image](https://github.com/user-attachments/assets/206379e1-77c2-45b7-977b-9e2a613e291a)
+
 
 *The diagram above shows the LangGraph flow visualization of the AI Travel Master system, illustrating how the supervisor coordinates with the three specialized assistants (Flight, Accommodation, and Car Rental) in a multi-agent workflow.*
 
